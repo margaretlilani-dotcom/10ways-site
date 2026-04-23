@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10ways — Go-to-Market Advisory</title>
+  <meta name="description" content="10ways is a go-to-market advisory helping early-stage companies find product-market fit, build sales teams, and scale to $100M+ in ARR.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --color-bg: #0f1923;
+      --color-text: #e8eaed;
+      --color-text-secondary: #9aa8b8;
+      --color-text-light: #5e7082;
+      --color-accent: #e8eaed;
+      --color-accent-hover: #c8cdd3;
+      --color-border: #1e2d3d;
+      --color-surface: #162029;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --max-width: 1080px;
+      --section-padding: 100px 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(15, 25, 35, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo { display: flex; align-items: center; }
+
+    .logo-svg {
+      height: 48px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--color-text); }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 24px;
+      background: var(--color-accent);
+      color: #0f1923;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover { background: var(--color-accent-hover); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-text);
+      border: 1.5px solid #2a3f52;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--color-text);
+      background: transparent;
+    }
+
+    /* ── Mobile Nav Toggle ── */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--color-text);
+      margin: 5px 0;
+      transition: 0.3s;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 160px 0 100px;
+      text-align: center;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text-light);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      max-width: 720px;
+      margin: 0 auto 24px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--color-text-secondary);
+      max-width: 540px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── Section Shared ── */
+    .section { padding: var(--section-padding); }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-text-light);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .section-subtitle {
+      font-size: 17px;
+      color: var(--color-text-secondary);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ── Services ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .service-card {
+      padding: 32px;
+      border: 1px solid var(--color-border);
+      border-top: 3px solid var(--card-accent, var(--color-border));
+      border-radius: 10px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .service-card:hover {
+      border-color: var(--color-text-light);
+      border-top-color: var(--card-accent, var(--color-text-light));
+      transform: translateY(-2px);
+    }
+
+    .service-card .icon {
+      width: 40px;
+      height: 40px;
+      background: var(--card-accent-bg, var(--color-surface));
+      color: var(--card-accent, var(--color-text));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    /* Card accent colors */
+    .service-card:nth-child(1) { --card-accent: #4da8da; --card-accent-bg: rgba(77,168,218,0.12); }
+    .service-card:nth-child(2) { --card-accent: #c084fc; --card-accent-bg: rgba(192,132,252,0.12); }
+    .service-card:nth-child(3) { --card-accent: #f59e0b; --card-accent-bg: rgba(245,158,11,0.12); }
+    .service-card:nth-child(4) { --card-accent: #34d399; --card-accent-bg: rgba(52,211,153,0.12); }
+    .service-card:nth-child(5) { --card-accent: #fb7185; --card-accent-bg: rgba(251,113,133,0.12); }
+    .service-card:nth-child(6) { --card-accent: #60a5fa; --card-accent-bg: rgba(96,165,250,0.12); }
+
+    .service-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ── Process ── */
+    .process-bg { background: var(--color-surface); }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .step {
+      position: relative;
+      padding: 36px 32px;
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .step-number {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--step-accent, var(--color-text-light));
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .step h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--step-accent, var(--color-text));
+    }
+
+    .step p {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+    }
+
+    /* Step accent colors */
+    .step:nth-child(1) { --step-accent: #4da8da; border-top: 3px solid var(--step-accent); }
+    .step:nth-child(2) { --step-accent: #c084fc; border-top: 3px solid var(--step-accent); }
+    .step:nth-child(3) { --step-accent: #34d399; border-top: 3px solid var(--step-accent); }
+
+    /* Arrow connectors between steps */
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -16px;
+      width: 8px;
+      height: 8px;
+      border-top: 2px solid var(--color-text-light);
+      border-right: 2px solid var(--color-text-light);
+      transform: translateY(-50%) rotate(45deg);
+      z-index: 1;
+    }
+
+    /* ── Ideal Clients ── */
+    .clients-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      margin-top: 56px;
+    }
+
+    .client-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .client-tag {
+      padding: 8px 18px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+
+    .clients-text p {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    /* ── Track Record ── */
+    .track-bg { background: var(--color-surface); }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      margin-top: 56px;
+      text-align: center;
+    }
+
+    .stat h3 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat p {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+
+    /* ── About ── */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 64px;
+      align-items: center;
+      margin-top: 56px;
+    }
+
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .about-text h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .about-text .role {
+      font-size: 15px;
+      color: var(--color-text-light);
+      margin-bottom: 24px;
+    }
+
+    .about-text p {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    /* ── CTA Section ── */
+    .cta-section {
+      padding: 100px 0;
+      text-align: center;
+      background: #1a2a38;
+      color: var(--color-text);
+    }
+
+    .cta-section .section-label { color: var(--color-text-light); }
+    .cta-section .section-title { color: var(--color-text); }
+
+    .cta-section p {
+      font-size: 17px;
+      color: var(--color-text-secondary);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .btn-white {
+      background: var(--color-accent);
+      color: #0f1923;
+    }
+
+    .btn-white:hover { background: var(--color-accent-hover); }
+
+    /* ── Footer ── */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--color-border);
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--color-text-light);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--color-text-light);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--color-text); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      :root { --section-padding: 72px 0; }
+
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(15,25,35,0.98);
+        backdrop-filter: blur(12px);
+        padding: 24px 32px;
+        border-bottom: 1px solid var(--color-border);
+        gap: 20px;
+      }
+
+      .hero { padding: 120px 0 72px; }
+
+      .services-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; gap: 24px; }
+      .step:not(:last-child)::after { display: none; }
+      .clients-content { grid-template-columns: 1fr; gap: 40px; }
+      .about-content { grid-template-columns: 1fr; gap: 40px; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+      footer .container { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <a href="#" class="logo" aria-label="10ways home">
+        <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+          <!-- Rowing shell body -->
+          <path d="M10,30 Q20,28 50,27 L210,27 Q240,28 250,30 Q240,32 210,33 L50,33 Q20,32 10,30 Z" fill="#e8eaed"/>
+          <!-- Rower dots -->
+          <circle cx="70" cy="30" r="3.5" fill="#0f1923"/><circle cx="90" cy="30" r="3.5" fill="#0f1923"/>
+          <circle cx="110" cy="30" r="3.5" fill="#0f1923"/><circle cx="130" cy="30" r="3.5" fill="#0f1923"/>
+          <circle cx="150" cy="30" r="3.5" fill="#0f1923"/><circle cx="170" cy="30" r="3.5" fill="#0f1923"/>
+          <circle cx="190" cy="30" r="3.5" fill="#0f1923"/>
+          <!-- Oars top -->
+          <line x1="65" y1="10" x2="75" y2="27" stroke="#e8eaed" stroke-width="1.5"/>
+          <line x1="85" y1="10" x2="95" y2="27" stroke="#e8eaed" stroke-width="1.5"/>
+          <line x1="105" y1="10" x2="115" y2="27" stroke="#e8eaed" stroke-width="1.5"/>
+          <line x1="125" y1="10" x2="135" y2="27" stroke="#e8eaed" stroke-width="1.5"/>
+          <line x1="145" y1="10" x2="155" y2="27" stroke="#e8eaed" stroke-width="1.5"/>
+          <line x1="165" y1="10" x2="175" y2="27" stroke="#e8eaed" stroke-width="1.5"/>
+          <line x1="185" y1="10" x2="195" y2="27" stroke="#e8eaed" stroke-width="1.5"/>
+          <!-- Oar blades top -->
+          <rect x="62" y="6" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(-10,65,8)"/>
+          <rect x="82" y="6" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(-10,85,8)"/>
+          <rect x="102" y="6" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(-10,105,8)"/>
+          <rect x="122" y="6" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(-10,125,8)"/>
+          <rect x="142" y="6" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(-10,145,8)"/>
+          <rect x="162" y="6" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(-10,165,8)"/>
+          <rect x="182" y="6" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(-10,185,8)"/>
+          <!-- Oars bottom -->
+          <line x1="75" y1="33" x2="65" y2="50" stroke="#e8eaed" stroke-width="1.5"/>
+          <line x1="95" y1="33" x2="85" y2="50" stroke="#e8eaed" stroke-width="1.5"/>
+          <line x1="115" y1="33" x2="105" y2="50" stroke="#e8eaed" stroke-width="1.5"/>
+          <line x1="135" y1="33" x2="125" y2="50" stroke="#e8eaed" stroke-width="1.5"/>
+          <line x1="155" y1="33" x2="145" y2="50" stroke="#e8eaed" stroke-width="1.5"/>
+          <line x1="175" y1="33" x2="165" y2="50" stroke="#e8eaed" stroke-width="1.5"/>
+          <line x1="195" y1="33" x2="185" y2="50" stroke="#e8eaed" stroke-width="1.5"/>
+          <!-- Oar blades bottom -->
+          <rect x="62" y="49" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(10,65,52)"/>
+          <rect x="82" y="49" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(10,85,52)"/>
+          <rect x="102" y="49" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(10,105,52)"/>
+          <rect x="122" y="49" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(10,125,52)"/>
+          <rect x="142" y="49" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(10,145,52)"/>
+          <rect x="162" y="49" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(10,165,52)"/>
+          <rect x="182" y="49" width="6" height="5" rx="1" fill="#e8eaed" transform="rotate(10,185,52)"/>
+          <!-- Text -->
+          <text x="130" y="72" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="4" fill="#e8eaed">10 WAYS</text>
+        </svg>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact" class="btn">Get in Touch</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-tag">Go-to-Market Advisory</span>
+      <h1>From zero to scale. With someone who's done it before.</h1>
+      <p>20 years of building go-to-market engines for SaaS, regulated industries, and professional services — from first revenue to $100M+ ARR and IPO.</p>
+      <div class="hero-cta">
+        <a href="mailto:margaret@10ways.io" class="btn">Start a Conversation</a>
+        <a href="#services" class="btn btn-outline">See How I Help</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section" id="services">
+    <div class="container">
+      <span class="section-label">What I Do</span>
+      <h2 class="section-title">Hands-on GTM advisory for founders<br>who are ready to scale.</h2>
+      <p class="section-subtitle">I work alongside leadership teams to build the strategy, systems, and teams that turn early traction into repeatable revenue.</p>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="icon">&#9678;</div>
+          <h3>Product-Market Fit</h3>
+          <p>Sharpen your positioning, validate your ICP, and build the foundation for scalable demand before you pour fuel on the fire.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">&#9670;</div>
+          <h3>Go-to-Market Strategy</h3>
+          <p>Design your market entry — pricing, packaging, channels, and messaging — so you launch with clarity and momentum.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">&#9632;</div>
+          <h3>Sales Team Builds</h3>
+          <p>Hire the right people, define the right roles, and stand up the playbooks and processes that let a team ramp fast.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">&#9650;</div>
+          <h3>RevOps & Scaling</h3>
+          <p>Build the operational backbone — forecasting, pipeline management, tech stack, and metrics — to scale with confidence.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">&#9673;</div>
+          <h3>Global Expansion</h3>
+          <p>Enter new markets across LATAM, EMEA, and APAC with a proven playbook — from regional strategy and localization to building and leading teams on the ground.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">&#11042;</div>
+          <h3>AI-Driven GTM</h3>
+          <p>Audit your current tech stack, identify where AI can accelerate your pipeline, and recommend the right tools — so your GTM engine runs smarter, not just harder.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section process-bg" id="process">
+    <div class="container">
+      <span class="section-label">How I Work</span>
+      <h2 class="section-title">A clear process. No black boxes.</h2>
+      <p class="section-subtitle">Every engagement is tailored, but the framework is consistent — diagnose where you are, design what's next, and deliver results.</p>
+
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-number">Step 01</div>
+          <h3>Diagnose</h3>
+          <p>Deep-dive into your current GTM motion — what's working, what's not, and where the biggest leverage points are. I talk to your team, study the data, and map the landscape.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">Step 02</div>
+          <h3>Design</h3>
+          <p>Build a focused, actionable GTM plan — not a 60-page deck that collects dust, but a clear roadmap with priorities, owners, and timelines your team can execute on.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">Step 03</div>
+          <h3>Deliver</h3>
+          <p>Roll up my sleeves and work alongside your team to implement. I stay embedded through execution — hiring, launching, iterating — until the engine is running.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who It's For -->
+  <section class="section" id="clients">
+    <div class="container">
+      <span class="section-label">Who I Work With</span>
+      <h2 class="section-title">Built for founders and GTM leaders<br>at inflection points.</h2>
+
+      <div class="clients-content">
+        <div class="clients-text">
+          <p>I work best with early-to-growth-stage companies that have initial traction but need an experienced hand to build the GTM engine that scales. Whether you're VC-backed, PE-backed, or bootstrapped — if you're at a moment where the next phase of growth requires real operational rigor, that's where I come in.</p>
+          <p>I've done this across public companies, private-equity portfolio companies, and venture-backed startups — so I understand the different pressures, timelines, and expectations that come with each.</p>
+        </div>
+        <div class="client-tags">
+          <span class="client-tag">Seed to Series B</span>
+          <span class="client-tag">SaaS</span>
+          <span class="client-tag">Regulated Industries</span>
+          <span class="client-tag">Professional Services</span>
+          <span class="client-tag">VC-Backed</span>
+          <span class="client-tag">PE-Backed</span>
+          <span class="client-tag">First GTM Hire</span>
+          <span class="client-tag">Scaling Past $10M ARR</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Track Record -->
+  <section class="section track-bg">
+    <div class="container">
+      <span class="section-label">Track Record</span>
+      <h2 class="section-title">The numbers behind the work.</h2>
+
+      <div class="stats-row">
+        <div class="stat">
+          <h3>20+</h3>
+          <p>Years in GTM leadership</p>
+        </div>
+        <div class="stat">
+          <h3>$100M+</h3>
+          <p>ARR built from zero</p>
+        </div>
+        <div class="stat">
+          <h3>5,000+</h3>
+          <p>People led globally</p>
+        </div>
+        <div class="stat">
+          <h3>90+</h3>
+          <p>Countries across LATAM, EMEA & APAC</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <span class="section-label">About</span>
+      <h2 class="section-title">The person behind the practice.</h2>
+
+      <div class="about-content">
+        <div class="about-photo"><img src="headshot.jpg" alt="Margaret Lilani, Founder of 10ways"></div>
+        <div class="about-text">
+          <h3>Margaret Lilani</h3>
+          <p class="role">Founder, 10ways</p>
+          <p>I've spent 20 years building go-to-market teams and revenue engines across SaaS, regulated industries, and professional services. I've led global teams of 5,000+ people across 90+ countries — driving expansion in LATAM, EMEA, and APAC — and built revenue from zero to over $100M in ARR.</p>
+          <p>The name 10ways comes from something my father used to say: <em>"There are 10 ways of saying something — use the good ones."</em> That idea is the foundation of everything I do. In go-to-market, there are always multiple paths. My job is to help you find the right ones — the ones that actually work for your stage, your market, and your team.</p>
+          <p>I started 10ways because I kept seeing the same patterns: talented founders with strong products who were struggling to crack the GTM code. I help them skip the expensive trial-and-error and build the right foundation from the start.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="container">
+      <span class="section-label">Let's Talk</span>
+      <h2 class="section-title">Ready to build your GTM engine?</h2>
+      <p>Whether you're figuring out product-market fit or scaling past $10M, I'd love to hear what you're working on. No pitch, just a conversation.</p>
+      <a href="mailto:margaret@10ways.io" class="btn btn-white">margaret@10ways.io</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 10ways.io. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="https://www.linkedin.com/in/margaretlilani/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="mailto:margaret@10ways.io">Email</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('active'));
+
+    // Close mobile nav on link click
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => links.classList.remove('active'));
+    });
+  </script>
+
+</body>
+</html>
