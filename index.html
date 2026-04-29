@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>10ways — Go-to-Market Advisory</title>
+  <title>10ways | Go-to-Market Advisory</title>
   <meta name="description" content="10ways is a go-to-market advisory helping early-stage companies find product-market fit, build sales teams, and scale to $100M+ in ARR.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -198,11 +198,22 @@
     }
 
     /* ── Services ── */
+    .services-row-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--color-text-light);
+      margin-bottom: 16px;
+      margin-top: 56px;
+    }
+
+    .services-row-label:last-of-type { margin-top: 40px; }
+
     .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
-      margin-top: 56px;
     }
 
     .service-card {
@@ -211,6 +222,7 @@
       border-top: 3px solid var(--card-accent, var(--color-border));
       border-radius: 10px;
       transition: border-color 0.2s, transform 0.2s;
+      position: relative;
     }
 
     .service-card:hover {
@@ -232,13 +244,39 @@
       font-size: 18px;
     }
 
-    /* Card accent colors */
-    .service-card:nth-child(1) { --card-accent: #4da8da; --card-accent-bg: rgba(77,168,218,0.12); }
-    .service-card:nth-child(2) { --card-accent: #c084fc; --card-accent-bg: rgba(192,132,252,0.12); }
-    .service-card:nth-child(3) { --card-accent: #f59e0b; --card-accent-bg: rgba(245,158,11,0.12); }
-    .service-card:nth-child(4) { --card-accent: #34d399; --card-accent-bg: rgba(52,211,153,0.12); }
-    .service-card:nth-child(5) { --card-accent: #fb7185; --card-accent-bg: rgba(251,113,133,0.12); }
-    .service-card:nth-child(6) { --card-accent: #60a5fa; --card-accent-bg: rgba(96,165,250,0.12); }
+    .service-card .step-badge {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--card-accent);
+      opacity: 0.5;
+    }
+
+    /* Card accent colors — top row */
+    .services-grid.flow-row .service-card:nth-child(1) { --card-accent: #4da8da; --card-accent-bg: rgba(77,168,218,0.12); }
+    .services-grid.flow-row .service-card:nth-child(2) { --card-accent: #c084fc; --card-accent-bg: rgba(192,132,252,0.12); }
+    .services-grid.flow-row .service-card:nth-child(3) { --card-accent: #f59e0b; --card-accent-bg: rgba(245,158,11,0.12); }
+
+    /* Card accent colors — bottom row */
+    .services-grid.standalone-row .service-card:nth-child(1) { --card-accent: #34d399; --card-accent-bg: rgba(52,211,153,0.12); }
+    .services-grid.standalone-row .service-card:nth-child(2) { --card-accent: #fb7185; --card-accent-bg: rgba(251,113,133,0.12); }
+    .services-grid.standalone-row .service-card:nth-child(3) { --card-accent: #60a5fa; --card-accent-bg: rgba(96,165,250,0.12); }
+
+    /* Flow arrows between top-row cards */
+    .services-grid.flow-row .service-card:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -15px;
+      width: 8px;
+      height: 8px;
+      border-top: 2px solid var(--color-text-light);
+      border-right: 2px solid var(--color-text-light);
+      transform: translateY(-50%) rotate(45deg);
+      z-index: 1;
+    }
 
     .service-card h3 {
       font-size: 17px;
@@ -491,6 +529,7 @@
       .hero { padding: 120px 0 72px; }
 
       .services-grid { grid-template-columns: 1fr; }
+      .services-grid.flow-row .service-card:not(:last-child)::after { display: none; }
       .process-steps { grid-template-columns: 1fr; gap: 24px; }
       .step:not(:last-child)::after { display: none; }
       .clients-content { grid-template-columns: 1fr; gap: 40px; }
@@ -567,8 +606,8 @@
   <section class="hero">
     <div class="container">
       <span class="hero-tag">Go-to-Market Advisory</span>
-      <h1>From zero to scale. With someone who's done it before.</h1>
-      <p>20 years of building go-to-market engines for SaaS, regulated industries, and professional services — from first revenue to $100M+ ARR and IPO.</p>
+      <h1>From traction to scale. With someone who's done it before.</h1>
+      <p>20 years of building go-to-market engines for SaaS, regulated industries, and professional services. From early revenue to $100M+ ARR and IPO.</p>
       <div class="hero-cta">
         <a href="mailto:margaret@10ways.io" class="btn">Start a Conversation</a>
         <a href="#services" class="btn btn-outline">See How I Help</a>
@@ -581,38 +620,46 @@
     <div class="container">
       <span class="section-label">What I Do</span>
       <h2 class="section-title">Hands-on GTM advisory for founders<br>who are ready to scale.</h2>
-      <p class="section-subtitle">I work alongside leadership teams to build the strategy, systems, and teams that turn early traction into repeatable revenue.</p>
+      <p class="section-subtitle">I work alongside leadership teams to build the strategy, systems, and metrics that turn early traction into repeatable revenue, and help you define the signals that tell you you're doing it right.</p>
 
-      <div class="services-grid">
+      <p class="services-row-label">The foundation, built in sequence</p>
+      <div class="services-grid flow-row">
         <div class="service-card">
+          <span class="step-badge">01</span>
           <div class="icon">&#9678;</div>
           <h3>Product-Market Fit</h3>
-          <p>Sharpen your positioning, validate your ICP, and build the foundation for scalable demand before you pour fuel on the fire.</p>
+          <p>Validate your ICP, sharpen positioning, and establish the baseline economics: retention, CAC, and early LTV signals. All before you invest in a GTM motion.</p>
         </div>
         <div class="service-card">
+          <span class="step-badge">02</span>
           <div class="icon">&#9670;</div>
           <h3>Go-to-Market Strategy</h3>
-          <p>Design your market entry — pricing, packaging, channels, and messaging — so you launch with clarity and momentum.</p>
+          <p>Design your market entry across pricing, packaging, channels, and messaging, and prove the unit economics support a repeatable, scalable motion.</p>
         </div>
         <div class="service-card">
+          <span class="step-badge">03</span>
           <div class="icon">&#9632;</div>
           <h3>Sales Team Builds</h3>
-          <p>Hire the right people, define the right roles, and stand up the playbooks and processes that let a team ramp fast.</p>
+          <p>Once the motion is proven, hire the right people, define the right roles, and stand up the playbooks and processes that let a team ramp predictably.</p>
         </div>
+      </div>
+
+      <p class="services-row-label">Capabilities that accelerate growth</p>
+      <div class="services-grid standalone-row">
         <div class="service-card">
           <div class="icon">&#9650;</div>
           <h3>RevOps & Scaling</h3>
-          <p>Build the operational backbone — forecasting, pipeline management, tech stack, and metrics — to scale with confidence.</p>
+          <p>Build the operational backbone: forecasting, pipeline management, tech stack, and the metrics that matter. So you scale with confidence, not guesswork.</p>
         </div>
         <div class="service-card">
           <div class="icon">&#9673;</div>
           <h3>Global Expansion</h3>
-          <p>Enter new markets across LATAM, EMEA, and APAC with a proven playbook — from regional strategy and localization to building and leading teams on the ground.</p>
+          <p>Enter new markets across LATAM, EMEA, and APAC with a proven playbook. From regional strategy and localization to building and leading teams on the ground.</p>
         </div>
         <div class="service-card">
           <div class="icon">&#11042;</div>
           <h3>AI-Driven GTM</h3>
-          <p>Audit your current tech stack, identify where AI can accelerate your pipeline, and recommend the right tools — so your GTM engine runs smarter, not just harder.</p>
+          <p>Audit your current tech stack, identify where AI can accelerate your pipeline, and recommend the right tools so your GTM engine runs smarter, not just harder.</p>
         </div>
       </div>
     </div>
@@ -623,23 +670,23 @@
     <div class="container">
       <span class="section-label">How I Work</span>
       <h2 class="section-title">A clear process. No black boxes.</h2>
-      <p class="section-subtitle">Every engagement is tailored, but the framework is consistent — diagnose where you are, design what's next, and deliver results.</p>
+      <p class="section-subtitle">Every engagement is tailored, but the framework is consistent. Diagnose where you are, design what's next, and deliver results.</p>
 
       <div class="process-steps">
         <div class="step">
           <div class="step-number">Step 01</div>
           <h3>Diagnose</h3>
-          <p>Deep-dive into your current GTM motion — what's working, what's not, and where the biggest leverage points are. I talk to your team, study the data, and map the landscape.</p>
+          <p>Deep-dive into your current GTM motion: what's working, what's not, and where the biggest leverage points are. I talk to your team, study the data, and map the landscape.</p>
         </div>
         <div class="step">
           <div class="step-number">Step 02</div>
           <h3>Design</h3>
-          <p>Build a focused, actionable GTM plan — not a 60-page deck that collects dust, but a clear roadmap with priorities, owners, and timelines your team can execute on.</p>
+          <p>Build a focused, actionable GTM plan. Not a 60-page deck that collects dust, but a clear roadmap with priorities, owners, and timelines your team can execute on.</p>
         </div>
         <div class="step">
           <div class="step-number">Step 03</div>
           <h3>Deliver</h3>
-          <p>Roll up my sleeves and work alongside your team to implement. I stay embedded through execution — hiring, launching, iterating — until the engine is running.</p>
+          <p>Roll up my sleeves and work alongside your team to implement. I stay embedded through execution, from hiring to launching to iterating, until the engine is running.</p>
         </div>
       </div>
     </div>
@@ -653,8 +700,8 @@
 
       <div class="clients-content">
         <div class="clients-text">
-          <p>I work best with early-to-growth-stage companies that have initial traction but need an experienced hand to build the GTM engine that scales. Whether you're VC-backed, PE-backed, or bootstrapped — if you're at a moment where the next phase of growth requires real operational rigor, that's where I come in.</p>
-          <p>I've done this across public companies, private-equity portfolio companies, and venture-backed startups — so I understand the different pressures, timelines, and expectations that come with each.</p>
+          <p>I work best with early-to-growth-stage companies that have initial traction but need an experienced hand to build the GTM engine that scales. Whether you're VC-backed, PE-backed, or bootstrapped, if you're at a moment where the next phase of growth requires real operational rigor, that's where I come in.</p>
+          <p>I've done this across public companies, private-equity portfolio companies, and venture-backed startups, so I understand the different pressures, timelines, and expectations that come with each.</p>
         </div>
         <div class="client-tags">
           <span class="client-tag">Seed to Series B</span>
@@ -708,8 +755,8 @@
         <div class="about-text">
           <h3>Margaret Lilani</h3>
           <p class="role">Founder, 10ways</p>
-          <p>I've spent 20 years building go-to-market teams and revenue engines across SaaS, regulated industries, and professional services. I've led global teams of 5,000+ people across 90+ countries — driving expansion in LATAM, EMEA, and APAC — and built revenue from zero to over $100M in ARR.</p>
-          <p>The name 10ways comes from something my father used to say: <em>"There are 10 ways of saying something — use the good ones."</em> That idea is the foundation of everything I do. In go-to-market, there are always multiple paths. My job is to help you find the right ones — the ones that actually work for your stage, your market, and your team.</p>
+          <p>I've spent 20 years building go-to-market teams and revenue engines across SaaS, regulated industries, and professional services. I've led global teams of 5,000+ people across 90+ countries, driving expansion in LATAM, EMEA, and APAC, and built revenue from zero to over $100M in ARR.</p>
+          <p>The name 10ways comes from something my father used to say: <em>"There are 10 ways of saying something. Use the good ones."</em> That idea is the foundation of everything I do. In go-to-market, there are always multiple paths. My job is to help you find the right ones, the ones that actually work for your stage, your market, and your team.</p>
           <p>I started 10ways because I kept seeing the same patterns: talented founders with strong products who were struggling to crack the GTM code. I help them skip the expensive trial-and-error and build the right foundation from the start.</p>
         </div>
       </div>
